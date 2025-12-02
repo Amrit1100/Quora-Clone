@@ -177,7 +177,7 @@ app.post("/profile", async(req,res)=>{
       try{
         let db = client.db("Quora-Clone")
         let Blogs = db.collection("Blogs")
-        let blogs = await Blogs.findOne({email})
+        let blogs = await Blogs.find({email}).toArray()
         let Users = db.collection("Users")
         let details = await Users.findOne({email})
         res.json({msg : blogs, name : details.name})
