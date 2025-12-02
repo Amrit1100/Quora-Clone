@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile | Quora Clone</title>
+  <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+   <nav>
+    <div class="logo">MyBlog</div>
+    
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/profile">Profile</a>
+      <a href="/blogs">Blogs</a>
+      <a href="/about">About</a>
+      <a href="/contact">Contact</a>
+    </div>
+
+    <div class="auth-btns">
+    <a href="/login">Login</a>
+    <a href="/signup">Signup</a>
+    <div class="logout">Logout</div>
+    </div>
+
+    <div class="menu-icon" onclick="toggleMenu()">☰</div>
+  </nav>
+  <div class="flex-container">
+  <div class="profile-container">
+    <div class="user-header">
+      <img src="/Amrit.jpeg" alt="User Image" class="user-image">
+      <div class="user-info">
+        <div class="box"><h2 class="user-name">Amrit</h2> <a href="/add-blog" class="anchorblog"><button class="addblog">Add Blog</button></a></div>
+        <p class="user-bio">Passionate writer | Tech enthusiast | Lifelong learner</p>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="user-blogs">
+      <h3 class="section-title">My Blogs</h3>
+
+      <!-- Blog Template (You’ll replace these with JS) -->
+      <div class="blog-card">
+        <h4 class="blog-title">Why JavaScript is Awesome</h4>
+        <p class="blog-snippet">JavaScript powers the web and brings interactivity to life...</p>
+        <p class="blog-date">Published on: Jan 10, 2025</p>
+      </div>
+
+      <div class="blog-card">
+        <h4 class="blog-title">Understanding Node.js</h4>
+        <p class="blog-snippet">Node.js lets developers use JavaScript for backend development...</p>
+        <p class="blog-date">Published on: Feb 4, 2025</p>
+      </div>
+
+      <!-- More blog cards can be appended dynamically -->
+    </div>
+  </div>
+  </div>
+
+  <script src="profile.js"></script>
+</body>
+</html>

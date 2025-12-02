@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyBlog</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+    <div class="logo">MyBlog</div>
+    
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/profile">Profile</a>
+      <a href="/blogs">Blogs</a>
+      <a href="/about">About</a>
+      <a href="/contact">Contact</a>
+    </div>
+
+    <div class="auth-btns">
+    <a href="/login">Login</a>
+    <a href="/signup">Signup</a>
+    <div class="logout">Logout</div>
+    </div>
+
+    <div class="menu-icon" onclick="toggleMenu()">☰</div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="/">Home</a>
+    <a href="/blogs">Blogs</a>
+    <a href="/about">About</a>
+    <a href="/contact">Contact</a>
+    <a href="/login">Login</a>
+    <a href="/signup">Signup</a>
+  </div>
+
+  <section>
+    <h1 class="email">User Not Logged In</h1>
+  </section>
+  <script>
+     const getdetails = async()=>{
+      try{
+      let response = await fetch("/me", {
+        method : "POSt",
+        credentials: "include"
+      })
+      let data = await response.json()
+      console.log(data)
+      if (data.msg === "loggedIn"){
+        document.querySelector(".email").innerHTML = data.email
+      }
+      }catch(err){
+        console.log(err)
+      }
+      return data.msg
+     
+    }
+    userState = getdetails()
+
+    document.querySelector(".logout").addEventListener("click", async()=>{
+      if (userState === "NotloggedIn"){
+        alert("User Not Logged In")
+      }else{
+        let response = await fetch("/logout", {
+          method: "POST",
+          credentials: "include"
+        })
+        let data = await  response.json()
+        alert(data.msg)
+        window.location.reload()
+      }
+    })
+  </script>
+</body>
+</html>
