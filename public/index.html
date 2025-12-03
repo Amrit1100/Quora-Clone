@@ -6,12 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MyBlog</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" href="favicon-32x32.png" type="image/x-icon">
 </head>
 
 <body>
   <div class="backvanta"></div>
   <nav>
-    <div class="logo">MyBlog</div>
+    <div class="logo"><span>S</span>cribe<span>H</span>ub</div>
 
     <div class="nav-links">
       <a href="/">Home</a>
@@ -28,7 +29,7 @@
     </div>
   </nav>
 
-  <h1 class="heading">Welcome to Blog Community</h1>
+  <h1 class="heading">Welcome to <span>ScribeHub</span></h1>
   <p class="subheading">A platform where you can create, share, and explore blogs with likes and comments.</p>
 
   <div class="container">
@@ -37,7 +38,8 @@
     <div class="card">
       <div class="card-header">
         <img src="Amrit.jpeg" alt="Person">
-        <strong>John Doe</strong>
+        <strong class="username"><span>J</span>ohn <span>D</span>oe</strong>
+
       </div>
       <h2>Title of Blog</h2>
       <div class="blog-content">
@@ -86,108 +88,7 @@
         backgroundColor: 0x0
       })
     </script>
-    <script>
-      const getdetails = async () => {
-        try {
-          let response = await fetch("/me", {
-            method: "POSt",
-            credentials: "include"
-          })
-          let data = await response.json()
-          console.log(data)
-          if (data.msg === "loggedIn") {
-            document.querySelector(".email").innerHTML = data.email
-          }
-        } catch (err) {
-          console.log(err)
-        }
-        return data.msg
-
-      }
-      userState = getdetails()
-
-      document.querySelector(".logout").addEventListener("click", async () => {
-        if (userState === "NotloggedIn") {
-          alert("User Not Logged In")
-        } else {
-          let response = await fetch("/logout", {
-            method: "POST",
-            credentials: "include"
-          })
-          let data = await response.json()
-          alert(data.msg)
-          window.location.reload()
-        }
-      })
-
-      function createBlogCard(imageSrc, email, title, blogText) {
-        // Create card container
-        const card = document.createElement("div");
-        card.className = "card";
-
-        // Header
-        const header = document.createElement("div");
-        header.className = "card-header";
-
-        const img = document.createElement("img");
-        img.src = imageSrc;
-        img.alt = email;
-
-        const name = document.createElement("strong");
-        name.textContent = email;
-
-        header.appendChild(img);
-        header.appendChild(name);
-
-        //title
-        const blogtitle = document.createElement("h2")
-        blogtitle.textContent = title
-
-        // Blog content
-        const blogContent = document.createElement("div");
-        blogContent.className = "blog-content";
-        blogContent.textContent = blogText;
-
-        // Actions
-        const actions = document.createElement("div");
-        actions.className = "actions";
-
-        const likeBtn = document.createElement("button");
-        likeBtn.textContent = "Like ❤️";
-
-        const commentBtn = document.createElement("button");
-        commentBtn.textContent = "Comment 💬";
-
-        actions.appendChild(likeBtn);
-        actions.appendChild(commentBtn);
-
-        // Add all to card
-        card.appendChild(header);
-        card.appendChild(blogtitle)
-        card.appendChild(blogContent);
-        card.appendChild(actions);
-
-        return card;
-      }
-
-      const getblogs = async () => {
-        let response = await fetch("/getblogs", {
-          method: "POST",
-        })
-        let data = await response.json()
-        console.log(data.blogs)
-        for (let i = 0; i <= data.blogs.length; i++) {
-          let email = (data.blogs[i]).email
-          let title = (data.blogs[i]).title
-          let content = (data.blogs[i]).content
-          let card = createBlogCard("Amrit.jpeg", email, title, content)
-          document.querySelector(".container").appendChild(card)
-
-        }
-      }
-
-      getblogs()
-    </script>
+    <script src="script.js"></script>
 </body>
 
 </html>

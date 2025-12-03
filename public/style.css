@@ -32,6 +32,10 @@
       letter-spacing: 1px;
     }
 
+    .logo span{
+      color: #FACC15;
+    }
+
     .nav-links {
       display: flex;
       gap: 25px;
@@ -45,8 +49,9 @@
     }
 
     .nav-links a:hover {
-      color: #ffdf6c;
+      color: #EAB308;
       transform: scale(1.05);
+      text-shadow: 0 0 10px #FACC15
     }
 
     .auth-btns {
@@ -56,11 +61,11 @@
 
     .auth-btns a {
       padding: 8px 16px;
-      border-radius: 20px;
+      border-radius: 0.5rem;
       text-decoration: none;
       font-weight: bold;
-      background: white;
-      color: #2575fc;
+      background: #FACC15;
+      color: black;
       transition: background 0.3s, transform 0.2s;
       cursor: pointer;
     }
@@ -70,25 +75,24 @@
       border-radius: 20px;
       text-decoration: none;
       font-weight: bold;
-      background: white;
-      color: #2575fc;
+       background: #FACC15;
+      color: black;
       transition: background 0.3s, transform 0.2s;
       cursor: pointer;
     }
 
     .logout:hover{
-      background: #ffdf6c;
+      background: #EAB308;
       color: black;
       transform: translateY(-2px);
+      box-shadow: 0 0 10px #FACC15
     }
 
     .auth-btns a:hover {
-      background: #ffdf6c;
-      color: black;
       transform: translateY(-2px);
+      background: #EAB308;
+      box-shadow: 0 0 10px #FACC15
     }
-
-
 
     .heading{
       text-align: center;
@@ -97,11 +101,16 @@
       margin-top: 40px;
     }
 
+    .heading span{
+      color: #FACC15;
+    }
+
     .subheading{
       color: grey;
       font-size: 24px;
       text-align: center;
       margin-top: 10px;
+      transition: 0.3s;
     }
   
       .container {
@@ -113,37 +122,49 @@
     }
 
     .card {
-      background: #6060601c;
+      /* background: #6060601c; */
+      background-color: #1A1A1A;
+      border: 1px solid #2D2D2D;
       border-radius: 12px;
       overflow: hidden;
       /* box-shadow: 0 4px 10px rgba(0,0,0,0.1); */
       transition: 0.3s;
       padding: 34px;
       margin: 30px;
-      /* border: 1px solid blue; */
+      border: 1px solid #FACC15;
       color: white;
+      /* box-shadow: 0 0 10px #FACC15 */
     }
 
     .card:hover {
       transform: translateY(-5px);
+      box-shadow: 0 0 10px #FACC15
     }
 
     .card-header {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 20px;
+    }
+
+    .card-header .username{
+      font-size: 24px;
+    }
+
+    .username span{
+      color: #FACC15;
     }
 
     .card-header img {
-      width: 50px;
-      height: 50px;
+      width: 85px;
+      height: 85px;
       border-radius: 100%;
       object-fit: cover;
     }
 
     .blog-image {
-      width: 100%;
-      height: 280px;
+      width: 200px;
+      height: 200px;
       object-fit: cover;
     }
 
@@ -167,13 +188,14 @@
       border: none;
       cursor: pointer;
       border-radius: 8px;
-      background: #007bff;
+      background: #FACC15;
       color: white;
       transition: 0.3s;
+      color: black;
     }
 
     .actions button:hover {
-      background: #0056b3;
+      background: #e4ba10;
     }
 
     .backvanta{

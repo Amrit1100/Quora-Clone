@@ -5,33 +5,35 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
-body{
-  background: linear-gradient(135deg, #f9f9f9, #f1f1f1);
-}
-.flex-container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 40px 0;
-}
+body {
+      font-family: "Poppins", sans-serif;
+      background-color: black;
+      overflow-x: hidden;
+    }
 
-nav {
+    nav {
       display: flex;
+      font-size: 18px;
       justify-content: space-between;
       align-items: center;
-      padding: 15px 40px;
-      background: linear-gradient(90deg, #6a11cb, #2575fc);
+      padding: 25px 45px;
+      /* background-color: #80808030; */
+      /* background: linear-gradient(90deg, #6a11cb, #2575fc); */
       color: white;
-      position: sticky;
+      /* position: sticky; */
       top: 0;
       z-index: 1000;
+      /* box-shadow: -4px 2px 20px; */
     }
 
     .logo {
       font-size: 1.5rem;
       font-weight: bold;
       letter-spacing: 1px;
+    }
+
+    .logo span{
+      color: #FACC15;
     }
 
     .nav-links {
@@ -47,8 +49,9 @@ nav {
     }
 
     .nav-links a:hover {
-      color: #ffdf6c;
+      color: #EAB308;
       transform: scale(1.05);
+      text-shadow: 0 0 10px #FACC15
     }
 
     .auth-btns {
@@ -58,11 +61,11 @@ nav {
 
     .auth-btns a {
       padding: 8px 16px;
-      border-radius: 20px;
+      border-radius: 0.5rem;
       text-decoration: none;
       font-weight: bold;
-      background: white;
-      color: #2575fc;
+      background: #FACC15;
+      color: black;
       transition: background 0.3s, transform 0.2s;
       cursor: pointer;
     }
@@ -72,33 +75,37 @@ nav {
       border-radius: 20px;
       text-decoration: none;
       font-weight: bold;
-      background: white;
-      color: #2575fc;
+       background: #FACC15;
+      color: black;
       transition: background 0.3s, transform 0.2s;
       cursor: pointer;
     }
 
     .logout:hover{
-      background: #ffdf6c;
+      background: #EAB308;
       color: black;
       transform: translateY(-2px);
+      box-shadow: 0 0 10px #FACC15
     }
 
     .auth-btns a:hover {
-      background: #ffdf6c;
-      color: black;
       transform: translateY(-2px);
+      background: #EAB308;
+      box-shadow: 0 0 10px #FACC15
     }
-
 /* Main profile container */
 .profile-container {
-  width: 90%;
-  max-width: 700px;
-  background: #fff;
+  width: 74%;
+  margin: auto;
+  background: #232323;
   border-radius: 16px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  padding: 30px;
+  padding: 42px;
   animation: fadeIn 0.5s ease-in-out;
+  margin-top: 40px;
+  color: white;
+  box-shadow:  0 0 10px #FACC15;
+  border: 2px solid yellow;
 }
 
 /* User header (image + name) */
@@ -113,12 +120,14 @@ nav {
   height: 100px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid #e60023;
+  /* border: 3px solid #e60023; */
   transition: transform 0.3s ease;
+  cursor: pointer;
 }
 
 .user-image:hover {
   transform: scale(1.05);
+  box-shadow:  0 0 10px #FACC15;
 }
 
 .user-info {
@@ -127,7 +136,7 @@ nav {
 
 .user-name {
   font-size: 1.8rem;
-  color: #333;
+  color: white
 }
 
 .user-bio {
@@ -136,12 +145,20 @@ nav {
   margin-top: 4px;
 }
 
+.editprofile{
+  background-color: #FACC15;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+
+}
+
 /* Divider */
 .divider {
   margin: 20px 0;
   border: none;
   height: 1px;
-  background: #ddd;
+  background: #FACC15;
 }
 
 /* Blogs section */
