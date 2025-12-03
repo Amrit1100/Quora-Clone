@@ -190,6 +190,13 @@ app.post("/profile", async(req,res)=>{
     res.json({msg : "Not Logged In"})
   }
 })
+
+app.post("/getblogs", async(req,res)=>{
+   let db = client.db("Quora-Clone")
+   let Blogs = db.collection("Blogs")
+   let blogs = await Blogs.find({}).toArray()
+   res.status(200).json({blogs})
+})
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
