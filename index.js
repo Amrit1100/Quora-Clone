@@ -180,7 +180,7 @@ app.post("/profile", async(req,res)=>{
         let blogs = await Blogs.find({email}).toArray()
         let Users = db.collection("Users")
         let details = await Users.findOne({email})
-        res.json({msg : blogs, name : details.name})
+        res.json({msg : blogs, name : details.name, bio : details.bio})
       }catch(err){
         console.error(err)
         res.json({msg : "An Error Occured. Please try again.", email})
@@ -196,6 +196,30 @@ app.post("/getblogs", async(req,res)=>{
    let Blogs = db.collection("Blogs")
    let blogs = await Blogs.find({}).toArray()
    res.status(200).json({blogs})
+})
+
+app.post("/changeinfo", async(req,res)=>{
+      let email = req.useremail
+      let username = req.body.username
+      let bio = req.body.bio
+      try{
+        let db = client.db("Quora-Clone")
+        let users = db.collection("Users")
+        let user = await users.findOne({email})
+        if(!user){
+          res.status(400).json({msg : "User not Found"})
+        }else{
+            let result = await users.updateOne({email :email}, {$set : {name : username,  bio : bio}})
+            if(result.acknowledged){
+              res.status(200).json({msg : "Username Updated"})
+            }else{
+              res.status(500).json({msg : "Something went wrong"})
+            }}
+      }catch(err){
+        console.log(err)
+        res.status(500).json({msg : "Something went wrong"})
+      }
+      
 })
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
