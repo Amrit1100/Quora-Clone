@@ -6,12 +6,15 @@ const getdetails = async () => {
 
     let data = await response.json()
     if (data.msg === "NotloggedIn") {
+      document.querySelector(".auth-btns").classList.add("showauth")
         window.location.href = "http://localhost:3000"
+        return "NotloggedIn"
     } else {
-        return data.email
+      document.querySelector(".account").classList.add("showauth")
+        return "loggedIn"
     }
 }
-useremail = getdetails()
+userState = getdetails()
 
 const getinfo = async () => {
     let response = await fetch("/profile", {
@@ -25,6 +28,7 @@ const getinfo = async () => {
     }else{
       let username = document.querySelector(".user-name")
       let bio = document.querySelector(".user-bio")
+      document.querySelector(".accountname").innerHTML = data.name
       username.innerHTML = data.name
       if (!data.bio){
         bio.innerHTML = ""
@@ -56,6 +60,20 @@ const getinfo = async () => {
          }
 
 getinfo()
+      document.querySelector(".logout").addEventListener("click", async () => {
+        console.log("Button clicked")
+        if (userState === "NotloggedIn") {
+          alert("User Not Logged In")
+        } else {
+          let response = await fetch("/logout", {
+            method: "POST",
+            credentials: "include"
+          })
+          let data = await response.json()
+          alert(data.msg)
+          window.location.reload()
+        }
+      })
 
 
 const modal = document.getElementById("editModal");
@@ -65,6 +83,8 @@ const saveBtn = document.getElementById("saveBtn");
 
 // Open modal
 openBtn.addEventListener("click", () => {
+  document.getElementById("usernameInput").value = document.querySelector(".user-name").innerHTML
+  document.getElementById("bioInput").value = document.querySelector(".user-bio").innerHTML
   modal.classList.add("show")
 });
 

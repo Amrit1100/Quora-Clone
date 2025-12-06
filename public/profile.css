@@ -84,8 +84,9 @@ body {
     }
 
     .auth-btns {
-      display: flex;
+      display: none;
       gap: 15px;
+      align-items: center;
     }
 
     .auth-btns a {
@@ -122,6 +123,25 @@ body {
       background: #EAB308;
       box-shadow: 0 0 10px #FACC15
     }
+
+    .svgandname{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .account{
+      gap: 30px;
+      align-items: center;
+      display: none;
+    }
+
+
+    .showauth{
+      display: flex;
+    }
+
+
+
 /* Main profile container */
 .profile-container {
   width: 74%;

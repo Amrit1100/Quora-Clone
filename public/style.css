@@ -94,6 +94,12 @@
       box-shadow: 0 0 10px #FACC15
     }
 
+    .account{
+      display: flex;
+      gap: 5px;
+      align-items: center;
+}
+
     .heading{
       text-align: center;
       color: white;
