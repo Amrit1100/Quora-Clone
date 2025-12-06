@@ -121,7 +121,50 @@ saveBtn.addEventListener("click", async() => {
 });
 
 
+// Photo Modal logic
 
 
+  document.querySelector(".user-image").addEventListener("click", ()=>{
+      document.querySelector(".photo-overlay").classList.add("showPhotoModal")
+   })
+
+document.querySelector(".cancelphoto").addEventListener("click", ()=>{
+   document.querySelector(".photo-overlay").classList.remove("showPhotoModal")
+})
+
+
+document.querySelector("#selectphotoinput").addEventListener("change", ()=>{
+  const fileInput = document.querySelector("#selectphotoinput");
+  const selectedFileBox = document.querySelector("#selectedFileBox");
+  const fileName = document.querySelector("#fileName"); 
+   if (fileInput.files.length > 0){
+   let name = fileInput.files[0].name;
+   fileName.innerText = "Selected: " + name;
+   selectedFileBox.classList.remove("hiddenphoto");
+   document.querySelector(".uploadphoto").classList.add("showuploadphoto")
+  }else{
+    selectedFileBox.classList.add("hiddenphoto");
+    document.querySelector(".uploadphoto").classList.remove("showuploadphoto")
+  }
+
+})
+
+document.querySelector(".uploadphoto").addEventListener("click", async()=>{
+   const fileInput = document.querySelector("#selectphotoinput")
+   if(fileInput.files.length>0){
+      const file = fileInput.files[0]
+      const formData = new FormData
+      formData.append("photo", file)
+      let response = await fetch("/uploadphoto", {
+        method : "POST",
+        body : formData
+      })
+      let data = await response.json()
+      console.log(data)
+   }else{
+    alert("No Files Selected!")
+   }
+
+})
 
 

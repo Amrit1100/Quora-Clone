@@ -284,6 +284,104 @@ body {
 }
 
 
+/* Background Overlay */
+.photo-overlay {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(3px);
+  justify-content: center;
+  align-items: center;
+  z-index: -1000;
+  opacity: 0;
+  transition: all 0.3s ease-in;
+}
+
+.showPhotoModal{
+  opacity: 1;
+  z-index: 2000;
+}
+
+/* Modal Box */
+.photo-box {
+  background: #ffffff;
+  padding: 20px;
+  width: 320px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+
+/* Buttons */
+.photo-btn {
+  width: 100%;
+  margin-top: 12px;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.selectphotoinput{
+  display: none;
+}
+
+
+.selectphoto {
+  background: #007bff;
+  display: block;
+  color: white;
+  text-decoration: none;
+}
+.selectphoto:hover {
+  background: #0066d6;
+}
+
+.uploadphoto{
+  display: none;
+}
+
+.showuploadphoto{
+  display: block;
+  background-color: green;
+  color: white;
+}
+
+.removephoto {
+  background: #dc3545;
+  color: white;
+}
+.removephoto:hover {
+  background: #b92a36;
+}
+
+.cancelphoto {
+  background: #e0e0e0;
+}
+.cancelphoto:hover {
+  background: #cacaca;
+}
+
+.hiddenphoto {
+  display: none;
+}
+
+#selectedFileBox {
+  margin-top: 10px;
+  padding: 8px;
+  background: #eee;
+  border-radius: 6px;
+  width: fit-content;
+  color: black;
+}
+
+
 /* Divider */
 .divider {
   margin: 20px 0;

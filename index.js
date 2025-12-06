@@ -1,4 +1,5 @@
 const express = require('express')
+const multer = require("multer")
 const path = require("path")
 const { MongoClient } = require("mongodb");
 const cookieParser = require("cookie-parser");
@@ -20,6 +21,18 @@ app.use((req,res,next)=>{
   next()
 })
 
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, "uploads/"); // folder
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + "-" + file.originalname); 
+        // keeps name + extension
+    }
+});
+
+const uploads = multer({storage : storage})
 const uri = "mongodb+srv://amritpreetsingh:Amrit98788@mycluster.us690.mongodb.net/?retryWrites=true&w=majority&appName=MyCluster"
 const client = new MongoClient(uri)
 
@@ -33,7 +46,6 @@ async function connectmongo(){
   }
 }
 connectmongo()
-
 
 // All pages get request
 app.get('/', (req, res) => {
@@ -220,6 +232,15 @@ app.post("/changeinfo", async(req,res)=>{
         res.status(500).json({msg : "Something went wrong"})
       }
       
+})
+
+app.post("/uploadphoto", uploads.single("photo") ,async(req,res)=>{
+  if(req.loggedIn){
+      let email = req.useremail
+      res.json({ message: "Photo uploaded successfully!" });
+  }else{
+    res.status(400).json({msg : "User not logged In."})
+  }
 })
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
