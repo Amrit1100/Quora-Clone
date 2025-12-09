@@ -30,6 +30,12 @@ const getinfo = async () => {
       let bio = document.querySelector(".user-bio")
       document.querySelector(".accountname").innerHTML = data.name
       username.innerHTML = data.name
+      let profileurl = data.profileurl
+      if(!profileurl){
+          document.querySelector(".user-image").src = "/account.jpg"
+      }else{
+        document.querySelector(".user-image").src = profileurl
+      }
       if (!data.bio){
         bio.innerHTML = ""
       }else{
@@ -164,7 +170,6 @@ document.querySelector(".uploadphoto").addEventListener("click", async()=>{
    }else{
     alert("No Files Selected!")
    }
-
 })
 
 

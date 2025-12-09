@@ -1,9 +1,10 @@
 const express = require('express')
+const uploadToAzure = require("./uploadToAzure");
 const multer = require("multer")
 const path = require("path")
 const { MongoClient } = require("mongodb");
 const cookieParser = require("cookie-parser");
-const { error } = require('console');
+const { error, profile } = require('console');
 const app = express()
 const port = 3000
 
@@ -24,17 +25,21 @@ app.use((req,res,next)=>{
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, "uploads/"); // folder
+        cb(null, "uploads/");
     },
+
     filename: (req, file, cb) => {
-        cb(null, Date.now() + "-" + file.originalname); 
-        // keeps name + extension
+        const ext = path.extname(file.originalname);  // get .jpg / .png / etc
+        // const email = req.useremail.replace(/[@.]/g, "_"); // safe filename
+        const email = req.useremail
+        cb(null, `${email}${ext}`);
     }
 });
 
 const uploads = multer({storage : storage})
 const uri = "mongodb+srv://amritpreetsingh:Amrit98788@mycluster.us690.mongodb.net/?retryWrites=true&w=majority&appName=MyCluster"
 const client = new MongoClient(uri)
+
 
 async function connectmongo(){
   try{
@@ -66,6 +71,11 @@ app.get('/profile', (req, res) => {
 
 app.get('/add-blog', (req, res) => {
   res.sendFile(path.join(__dirname, "/public/addblog.html"))
+})
+
+app.get("/blog/:slug", async(req,res)=>{
+  let slug = req.params.slug
+  res.json({msg : slug})
 })
 
 
@@ -192,7 +202,14 @@ app.post("/profile", async(req,res)=>{
         let blogs = await Blogs.find({email}).toArray()
         let Users = db.collection("Users")
         let details = await Users.findOne({email})
-        res.json({msg : blogs, name : details.name, bio : details.bio})
+        let profilephotoslinks = db.collection("profilephotoslinks")
+        let profilephotodata = await profilephotoslinks.findOne({email : email})
+        console.log(profilephotodata)
+        let profileurl = null
+        if(profilephotodata!=null){
+          profileurl = profilephotodata.url
+        }
+        res.json({msg : blogs, name : details.name, bio : details.bio, profileurl : profileurl})
       }catch(err){
         console.error(err)
         res.json({msg : "An Error Occured. Please try again.", email})
@@ -234,14 +251,44 @@ app.post("/changeinfo", async(req,res)=>{
       
 })
 
-app.post("/uploadphoto", uploads.single("photo") ,async(req,res)=>{
-  if(req.loggedIn){
-      let email = req.useremail
-      res.json({ message: "Photo uploaded successfully!" });
-  }else{
-    res.status(400).json({msg : "User not logged In."})
+function isLoggedIn(req, res, next) {
+  if (req.loggedIn) {
+    return next();
   }
-})
+  return res.status(401).json({ msg: "User not logged in." });
+}
+
+app.post(
+  "/uploadphoto",
+  isLoggedIn,
+  uploads.single("photo"),
+  async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ msg: "No file uploaded" });
+      }
+      const azureFileName = `${req.useremail}.png`;
+      const filePath = req.file.path;
+      const url = await uploadToAzure(filePath, azureFileName);
+      let email = req.useremail
+      let db = client.db("Quora-Clone")
+      let profilephotoslinks = db.collection("profilephotoslinks")
+      let result = await profilephotoslinks.insertOne({email: email, url })
+      if (result.acknowledged){
+        res.json({ msg: "Uploaded to Azure"});
+      }else{
+        res.json({msg : "Something wrong occured in inserting link to database."})
+      }
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ msg: "Upload failed" });
+    }
+  }
+);
+
+
+
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
