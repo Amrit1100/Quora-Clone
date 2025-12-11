@@ -11,6 +11,8 @@
   "dependencies": {
     "@azure/storage-blob": "^12.29.1",
     "cookie-parser": "^1.4.7",
+    "dotenv": "^17.2.3",
+    "ejs": "^3.1.10",
     "express.js": "^1.0.0",
     "mongodb": "^6.20.0",
     "mongoose": "^8.19.2",

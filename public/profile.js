@@ -161,6 +161,7 @@ document.querySelector(".uploadphoto").addEventListener("click", async()=>{
       const file = fileInput.files[0]
       const formData = new FormData
       formData.append("photo", file)
+      console.log(formData)
       let response = await fetch("/uploadphoto", {
         method : "POST",
         body : formData

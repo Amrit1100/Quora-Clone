@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express')
 const uploadToAzure = require("./uploadToAzure");
 const multer = require("multer")
@@ -37,8 +38,7 @@ const storage = multer.diskStorage({
 });
 
 const uploads = multer({storage : storage})
-const uri = "mongodb+srv://amritpreetsingh:Amrit98788@mycluster.us690.mongodb.net/?retryWrites=true&w=majority&appName=MyCluster"
-const client = new MongoClient(uri)
+const client = new MongoClient(process.env.MONGO_URI)
 
 
 async function connectmongo(){
@@ -74,8 +74,12 @@ app.get('/add-blog', (req, res) => {
 })
 
 app.get("/blog/:slug", async(req,res)=>{
-  let slug = req.params.slug
-  res.json({msg : slug})
+  res.sendFile(path.join(__dirname, "/public/blog.html"))
+})
+
+app.post("/blog/:slug", async(req,res)=>{
+   let slug = req.params.slug
+   res.status(200).json({msg : slug})
 })
 
 
@@ -269,6 +273,7 @@ app.post(
       }
       const azureFileName = `${req.useremail}.png`;
       const filePath = req.file.path;
+      console.log(filePath)
       const url = await uploadToAzure(filePath, azureFileName);
       let email = req.useremail
       let db = client.db("Quora-Clone")
@@ -285,9 +290,6 @@ app.post(
     }
   }
 );
-
-
-
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
