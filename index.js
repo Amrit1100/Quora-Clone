@@ -6,9 +6,13 @@ const path = require("path")
 const { MongoClient } = require("mongodb");
 const cookieParser = require("cookie-parser");
 const { error, profile } = require('console');
+const { title } = require('process');
 const app = express()
 const port = 3000
 
+
+app.set("view engine", "ejs");
+app.set("views", "./templates");
 app.use(express.json())
 app.use(cookieParser())
 
@@ -74,12 +78,8 @@ app.get('/add-blog', (req, res) => {
 })
 
 app.get("/blog/:slug", async(req,res)=>{
-  res.sendFile(path.join(__dirname, "/public/blog.html"))
-})
-
-app.post("/blog/:slug", async(req,res)=>{
-   let slug = req.params.slug
-   res.status(200).json({msg : slug})
+    const slug = req.params.slug
+    res.render("blog", {title : "Testing", content : "This is my first server side rendering", author : "Amrit"})
 })
 
 
@@ -174,13 +174,14 @@ app.post("/add-blog", async(req,res)=>{
       let email = req.useremail
       let title = req.body.title
       let content = req.body.content
+      let blogid = title.replace(/ /g, "-") +"-" + Date.now().toString()
       if(!title || !content){
         res.json({msg : "All Fields are required."})
       }else{
         try{
            let db = client.db("Quora-Clone")
           let Blogs = db.collection("Blogs")
-          let result = await Blogs.insertOne({email, title, content})
+          let result = await Blogs.insertOne({blogid, email, title, content})
           if(result.acknowledged){
             res.json({msg : "success"})
           }else{
@@ -273,7 +274,6 @@ app.post(
       }
       const azureFileName = `${req.useremail}.png`;
       const filePath = req.file.path;
-      console.log(filePath)
       const url = await uploadToAzure(filePath, azureFileName);
       let email = req.useremail
       let db = client.db("Quora-Clone")
